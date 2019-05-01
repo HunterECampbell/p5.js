@@ -1,0 +1,26 @@
+/*
+This project can be seen more fully on the p5.js editor:
+https://editor.p5js.org
+*/
+
+function setup() {
+  createCanvas(650, 400);
+}
+
+//Draws a triangle based on the canvas locations
+/Count is for how many recursions there are
+function drawTriangle(top, left, right, count) {
+  stroke(0, 0, 255);
+  line(width/2, height*top, width*.66, height*right);
+  line(width*.33, height*left, width/2, height*top);
+  line(width*.66, height*right, width*.33, height*left);
+  if(count > 0) {
+    drawTriangle(top+.05, left+.05, right+.05, count-1);
+  }
+}
+
+function draw() {
+  background(0);
+  
+  drawTriangle(.15, .5, .5, 10);
+}
