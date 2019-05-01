@@ -1,0 +1,66 @@
+/*
+This project idea was found on CodeWars - Narcissistic
+
+Function is to take digits from an integer,
+square each digit, sum the squared digits, and then
+see if the summed value equals the original value.  If they are equal,
+then the original number is narcissistic.
+
+This can be seen in the p5.js editor:
+https://editor.p5js.org
+*/
+
+function narcissist(value) {
+  //values to be used to determine if narcissistic
+  let original = value;
+  let totaledValue = 0;
+  
+  //Process to split up an integer into digits
+    //Find value to raise by
+  let raiseTo = str(value).length;
+    //Mod is used break up an integer into ones
+    //Example: 324 = 300, 24, 4
+  let mod = pow(10, raiseTo-1);
+    //digit is used to turn mod into a decimal and then to a rounded number
+    //Example: 324: 3.24 = 3, 2.4 = 2, 4 = 4
+  let digit = floor(value/mod);
+    //Stores the digits in digitArray
+  let digitArray = []
+    //newValue is used to manipulate the numbers without changing
+    //the original value, which can't be used for correct calculations
+  let newValue = value;
+    //For loop does the calculation through each digit of the integer
+  for(let i = 0; i < raiseTo; i++) {
+    digitArray[i] = floor(newValue / mod);
+    newValue -= digit * mod;
+    mod /= 10;
+    digit = floor(newValue/mod);
+  }
+  
+  //get total from squared digits
+  for(let i = 0; i < digitArray.length; i++) {
+    totaledValue += pow(digitArray[i], raiseTo);
+  }
+  
+  //check if narcissist
+  if(totaledValue == original) {
+    print(original + " is narcissistic.");
+    print("The calculated value is: " + totaledValue);
+    print(digitArray);
+  }
+  else {
+    print(original + " is not narcissistic.");
+    print("The calculated value is: " + totaledValue);
+    print(digitArray);
+  }
+}
+
+//run
+function setup() {
+  narcissist(1000000);
+  narcissist(9);
+  narcissist(327);
+  narcissist(12);
+  narcissist(568947);
+  narcissist(50);
+}
